@@ -62,16 +62,24 @@ while(true) {
   $map[$y][$x] = $previousChar;
   switch($direction) {
     case "UP":
-      $y = $y - 1;
+      if ($y === 0) {
+        $y = $height;
+      } else {
+        $y = $y - 1;
+      }
       break;
     case "LEFT":
-      $x = $x - 1;
+      if ($x === 0) {
+        $x = $width;
+      } else {
+        $x = $x - 1;
+      }
       break;
     case "RIGHT":
-      $x = $x + 1;
+      $x = ($x + 1) % $width;
       break;
     case "DOWN":
-      $y = $y + 1;
+      $y = ($y + 1) % $height;
       break;
   }
   $previousChar = $map[$y][$x];
