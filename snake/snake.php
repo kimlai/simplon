@@ -46,16 +46,24 @@ while(true) {
   $input = readInput();
   switch($input) {
     case "z":
-      $direction = "UP";
+      if ($direction !== "DOWN") {
+        $direction = "UP";
+      }
       break;
     case "q":
-      $direction = "LEFT";
+      if ($direction !== "RIGHT") {
+        $direction = "LEFT";
+      }
       break;
     case "d":
-      $direction = "RIGHT";
+      if ($direction !== "LEFT") {
+        $direction = "RIGHT";
+      }
       break;
     case "s":
-      $direction = "DOWN";
+      if ($direction !== "UP") {
+        $direction = "DOWN";
+      }
       break;
   }
 
