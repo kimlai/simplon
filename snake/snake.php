@@ -34,31 +34,26 @@ $direction = "RIGHT";
 
 while(true) {
   fwrite(STDOUT, "\033[0;0f"); // move cursor to start
-  for($i = 0; $i < $height; $i++) {
-    for($j = 0; $j < $width; $j++) {
-        fwrite(STDOUT, $map[$i][$j]);
-    }
-    fwrite(STDOUT, PHP_EOL);
-  }
 
   $input = readInput();
+
   switch($input) {
-    case "A":
+    case "z":
       if ($direction !== "DOWN") {
         $direction = "UP";
       }
       break;
-    case "D":
+    case "q":
       if ($direction !== "RIGHT") {
         $direction = "LEFT";
       }
       break;
-    case "C":
+    case "d":
       if ($direction !== "LEFT") {
         $direction = "RIGHT";
       }
       break;
-    case "B":
+    case "s":
       if ($direction !== "UP") {
         $direction = "DOWN";
       }
@@ -68,28 +63,43 @@ while(true) {
   $map[$y][$x] = $previousChar;
   switch($direction) {
     case "UP":
-      if ($y === 0) {
-        $y = $height;
+      if ($y === 1) {
+        $y = $height - 1;
       } else {
         $y = $y - 1;
       }
       break;
     case "LEFT":
-      if ($x === 0) {
-        $x = $width;
+      if ($x === 1) {
+        $x = $width - 1;
       } else {
         $x = $x - 1;
       }
       break;
     case "RIGHT":
-      $x = ($x + 1) % $width;
+      if ($x === $width - 2) {
+        $x = 1;
+      } else {
+        $x = $x + 1;
+      }
       break;
     case "DOWN":
-      $y = ($y + 1) % $height;
+      if ($y === $height - 2) {
+        $y = 1;
+      } else {
+        $y = $y + 1;
+      }
       break;
   }
   $previousChar = $map[$y][$x];
   $map[$y][$x] = "#";
+
+  for($i = 0; $i < $height; $i++) {
+    for($j = 0; $j < $width; $j++) {
+        fwrite(STDOUT, $map[$i][$j]);
+    }
+    fwrite(STDOUT, PHP_EOL);
+  }
 
   usleep(60000);
 }
@@ -100,7 +110,7 @@ function getSpecialCharacter($code) {
 
 function readInput() {
   readline_callback_handler_install('', function () {});
-  $char = stream_get_contents(STDIN, 1);
+  $char = stream_get_contents(STDIN, 2);
   readline_callback_handler_remove();
 
   return $char;
