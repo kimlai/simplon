@@ -41,26 +41,24 @@ while(true) {
     fwrite(STDOUT, PHP_EOL);
   }
 
-  usleep(60000);
-
   $input = readInput();
   switch($input) {
-    case "z":
+    case "A":
       if ($direction !== "DOWN") {
         $direction = "UP";
       }
       break;
-    case "q":
+    case "D":
       if ($direction !== "RIGHT") {
         $direction = "LEFT";
       }
       break;
-    case "d":
+    case "C":
       if ($direction !== "LEFT") {
         $direction = "RIGHT";
       }
       break;
-    case "s":
+    case "B":
       if ($direction !== "UP") {
         $direction = "DOWN";
       }
@@ -92,6 +90,8 @@ while(true) {
   }
   $previousChar = $map[$y][$x];
   $map[$y][$x] = "#";
+
+  usleep(60000);
 }
 
 function getSpecialCharacter($code) {
