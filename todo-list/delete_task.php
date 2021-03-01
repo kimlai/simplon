@@ -1,16 +1,13 @@
 <?php
 
-$tasks = [];
-$fileContentString = file_get_contents("tasks.txt");
-if ($fileContentString !== "") {
-  $tasks = explode("|", $fileContentString);
-}
+if (isset($_POST["remove_todo_id"])) {
+  $connection = new PDO('mysql:host=localhost;dbname=todo_list', "todo_list", "todo_list");
+  $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-if (isset($_POST["remove_todo_index"])) {
-  $taskToDeleteIndex = (int) $_POST["remove_todo_index"];
-  unset($tasks[$taskToDeleteIndex]);
-  $newFileContent = implode("|", $tasks);
-  file_put_contents("tasks.txt", $newFileContent);
+  $statement = $connection->prepare("DELETE FROM tasks WHERE id = :id");
+  $id = (int) $_POST["remove_todo_id"];
+  $statement->bindParam(":id", $id, PDO::PARAM_INT);
+  $statement->execute();
 
   header('Location: /');
   exit;
