@@ -11,7 +11,7 @@ foreach ($tasks as $task) {
   echo <<< HTML
   <li>
     $taskContent
-    <form method="POST" action="delete_task.php">
+    <form method="POST" action="/delete-task">
       <input name="remove_todo_id" value="$id" type="hidden" />
       <button>x</button>
     </form>

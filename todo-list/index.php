@@ -14,7 +14,7 @@
 
   <body>
     <main>
-      <form method="POST" action="create_task.php">
+      <form method="POST" action="/new-task">
         <label for="add-task">Nouvelle tâche</label>
         <input id="add-task" name="todo" />
         <button>Ajouter</button>
